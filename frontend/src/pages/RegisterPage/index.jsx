@@ -1,4 +1,44 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../store/thunkFunctions';
+
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ mode: 'onChange' });
+  const dispatch = useDispatch();
+
+  const onSubmit = ({ email, password, name }) => {
+    const body = {
+      email,
+      password,
+      name,
+      image: `https://via.placeholder.com/600x400?text=no+user+image`,
+    };
+
+    dispatch(registerUser(body));
+
+    reset();
+  };
+
+  const userEmail = {
+    required: '필수 필드입니다.',
+  };
+  const userName = {
+    required: '필수 필드입니다.',
+  };
+  const userPassword = {
+    required: '필수 필드입니다.',
+    minLength: {
+      value: 6,
+      message: '최소 6자입니다.',
+    },
+  };
+
   return (
     <section className="flex flex-col justify-center mt-20 max-w-[400px] m-auto">
       <div className="p-6 bg-white rounded-md shadow-md">
