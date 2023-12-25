@@ -42,9 +42,9 @@ userSchema.pre('save', async function (next) {
     }
     next();
 });
-
-userSchema.methods.comparePassword = async function (plainPassword) {
-    let user = this;
+// comparePassword : 로그인한 비밀번호가 암호화된 비밀번호와 맞는지 확인
+userSchema.methods.comparePassword = async function (plainPassword) { // plainPassword: 평문 패스워드
+    let user = this; // user의 데이터들
     const match = await bcrypt.compare(plainPassword, user.password);
     return match;
 }

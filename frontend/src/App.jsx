@@ -1,19 +1,21 @@
 import './App.css';
-import { Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet, useLocation } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Navbar from './layout/Navbar';
 import Footer from './layout/Footer';
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { authUser } from './store/thunkFunctions';
 function Layout() {
   return (
     <div className="flex flex-col h-screen justify-between">
       <ToastContainer
-        position='bottom-right'
-        theme='light'
+        position="bottom-right"
+        theme="light"
         pauseOnHover
         autoClose={1500}
       />
@@ -27,6 +29,14 @@ function Layout() {
 }
 
 function App() {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.user?.isAuth);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(authUser());
+    }
+  }, [isAuth, pathname, dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

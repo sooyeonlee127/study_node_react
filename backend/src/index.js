@@ -23,6 +23,8 @@ app.get('/', (req, res, next) => {
   //   res.send('안녕하세요.');
 });
 
+app.use('/users', require('./routes/users'));
+
 app.post('/', (req, res) => {
   console.log(req.body);
   res.json(req.body);

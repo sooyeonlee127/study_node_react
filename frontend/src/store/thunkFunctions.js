@@ -33,3 +33,19 @@ export const loginUser = createAsyncThunk(
     }
 
 )
+
+export const authUser = createAsyncThunk(
+    "user/authUser",
+    async(_, thunkAPI) => { // thunkAPI는 항상 두번째 매개변수이기 때문에 첫번째 매개변수가 없는 경우는 _ 이런식으로 비워두면 된다.
+        try {
+            const response = await axiosInstance.get(
+                `/users/auth`,
+            )
+            return response.data
+        } catch(error) {
+            return thunkAPI.rejectWithValue(error.response.data || error.message);
+
+        }
+    }
+
+)
