@@ -1,7 +1,8 @@
-
-const ProtectedRoutes = () => {
+import { Outlet, Navigate } from 'react-router-dom'
+// eslint-disable-next-line react/prop-types
+const ProtectedRoutes = ({ isAuth }) => {
   return (
-    <div>ProtectedRoutes</div>
+    isAuth ? <Outlet/> : <Navigate to={'/login'}/>
   )
 }
 

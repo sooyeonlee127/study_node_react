@@ -2,17 +2,22 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 
 
-router.post('/auth', async (req, res, next) => {
+
+router.get('/auth', auth, async (req, res, next) => {
+
   return res.json({
-    id:,
-    email:,
-    name:,
-    role,
-    image: 
+    id: req.user._id,
+    email: req.user.email,
+    name: req.user.name,
+    role: req.user.role,
+    image: req.user.image,
+    cart: req.user.cart,
+    history: req.user.history
   })
-});
+})
 
 
 router.post('/register', async (req, res, next) => {
@@ -51,5 +56,12 @@ router.post('/login', async (req, res, next) => {
 });
 
 
+router.post('/logout', auth, async (req, res, next) => {
+  try {
+    return res.sendStatus(200)
+  } catch(error) {
+    next(error)
+  }
+});
 
 module.exports = router;

@@ -1,7 +1,10 @@
+import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
-const NotAuthRoutes = () => {
+// eslint-disable-next-line react/prop-types
+const NotAuthRoutes = ({ isAuth }) => {
   return (
-    <div>NotAuthRoutes</div>
+    isAuth ? <Navigate to={'/'} /> : <Outlet />
   )
 }
 

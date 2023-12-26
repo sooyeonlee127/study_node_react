@@ -14,15 +14,15 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+// 토큰이 만료되었을 때
+axiosInstance.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    if (error.response.data === 'jwt expired') {
+        window.location.reload();
+    }
 
-// axiosInstance.interceptors.response.use(function (response) {
-//     return response;
-// }, function (error) {
-//     if (error.response.data === 'jwt expired') {
-//         window.location.reload();
-//     }
-
-//     return Promise.reject(error);
-// })
+    return Promise.reject(error);
+})
 
 export default axiosInstance;
