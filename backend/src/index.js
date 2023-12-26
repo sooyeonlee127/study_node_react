@@ -24,6 +24,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.use('/users', require('./routes/users'));
+app.use('/products', require('./routes/products'));
 
 app.post('/', (req, res) => {
   console.log(req.body);

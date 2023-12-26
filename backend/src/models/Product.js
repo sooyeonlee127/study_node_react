@@ -1,6 +1,9 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, Schema } = require("mongoose");
 
 const paymentSchema = mongoose.Schema({
+    writer: {
+        type: Schema.Types.ObjectId
+    },
     user: {
         type: Object
     },
