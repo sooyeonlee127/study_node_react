@@ -6,10 +6,12 @@ import axiosInstance from '../utils/axios';
 const FileUpload = ({ onImageChange, images }) => {
 
   const handleDrop = async (files) => {
+    console.log(files)
+    console.log('시작')
     let formData = new FormData();
 
     const config = {
-      header: { 'content-type': 'multipart/form-data' } // 이미지 전송시 필요
+      // header: { 'content-type': 'multipart/form-data' }
     }
 
     formData.append('file', files[0]);
@@ -49,10 +51,11 @@ const FileUpload = ({ onImageChange, images }) => {
           </section>
         )}
       </Dropzone>
+
       <div className='flex-grow h-[300px] border flex  items-center justify-center overflow-x-scroll overflow-y-hidden'>
         {/* eslint-disable-next-line react/prop-types */}
         {images.map(image => (
-          <div key={image} onClick={() =>handleDelete(image)}>
+          <div key={image} onClick={() => handleDelete(image)}>
             <img
               className='min-w-[300px] h-[300px]'
               src={`${import.meta.env.VITE_SERVER_URL}/${image}`}

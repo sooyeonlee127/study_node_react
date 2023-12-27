@@ -11,9 +11,10 @@ dotenv.config(); // env 사용
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('연결 완료'))
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    console.log(error);
   });
+  
 app.use(cors()); // cors 미들웨어 사용
 app.use(express.json()); // json 미들웨어 사용
 app.get('/', (req, res, next) => {
@@ -33,7 +34,7 @@ app.post('/', (req, res) => {
 
 // 에러 처리기
 app.use((error, req, res, next) => {
-  res.status(err.status || 500); // 에러 코드가 있으면 그걸 보내고, 없으면 500을 보냄
+  res.status(error.status || 500); // 에러 코드가 있으면 그걸 보내고, 없으면 500을 보냄
   res.send(error.message || '서버에서 에러가 났습니다.');
 });
 
